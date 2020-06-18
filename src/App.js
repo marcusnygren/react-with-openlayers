@@ -2,6 +2,13 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import {
+  SimpleButton
+} from '@terrestris/react-geo';
+
+import 'antd/dist/antd.css';
+//import './react-geo.css';
+
 function App() {
   return (
     <div className="App">
@@ -9,6 +16,11 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
+
+          <SimpleButton
+            onClick={() => {alert('Hello World!');}}
+            icon="bars"
+          />
         </p>
         <a
           className="App-link"
