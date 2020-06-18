@@ -4,6 +4,9 @@ import OlMap from 'ol/Map';
 import OlView from 'ol/View';
 import OlLayerTile from 'ol/layer/Tile';
 import OlSourceOsm from 'ol/source/OSM';
+import OlSourceTileWMS from 'ol/source/TileWMS';
+import OlLayerGroup from 'ol/layer/Group';
+import OlSourceTileJson from 'ol/source/TileJSON';
 
 import { Drawer } from 'antd';
 
@@ -16,7 +19,8 @@ import {
   SimpleButton, 
   MapComponent,
   NominatimSearch,
-  MeasureButton
+  MeasureButton,
+  LayerTree
 } from '@terrestris/react-geo';
 
 const layer = new OlLayerTile({
@@ -31,6 +35,30 @@ const map = new OlMap({
     zoom: 16,
   }),
   layers: [layer]
+});
+
+const layerGroup = new OlLayerGroup({
+  name: 'Layergroup',
+  layers: [
+    new OlLayerTile({
+      name: 'Food insecurity layer',
+      minResolution: 200,
+      maxResolution: 2000,
+      source: new OlSourceTileJson({
+        url: 'https://api.tiles.mapbox.com/v3/mapbox.20110804-hoa-foodinsecurity-3month.json?secure',
+        crossOrigin: 'anonymous'
+      })
+    }),
+    new OlLayerTile({
+      name: 'World borders layer',
+      minResolution: 2000,
+      maxResolution: 20000,
+      source: new OlSourceTileJson({
+        url: 'https://api.tiles.mapbox.com/v3/mapbox.world-borders-light.json?secure',
+        crossOrigin: 'anonymous'
+      })
+    })
+  ]
 });
 
 function App() {
@@ -71,7 +99,12 @@ function App() {
           >
             Measure distance
           </MeasureButton>
+          <LayerTree
+            layerGroup={layerGroup}
+            map={map}
+          />
         </Drawer>
+        
     </div>
   );
 }
