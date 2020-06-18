@@ -20,11 +20,50 @@ import {
   MapComponent,
   NominatimSearch,
   MeasureButton,
-  LayerTree
+  LayerTree,
+  mappify
 } from '@terrestris/react-geo';
 
 const layer = new OlLayerTile({
   source: new OlSourceOsm()
+});
+
+
+const MappifiedNominatimSearch = mappify(NominatimSearch);
+const MappifiedMeasureButton = mappify(MeasureButton);
+const MappifiedLayerTree = mappify(LayerTree);
+const Map = mappify(MapComponent);
+
+const layerGroup = new OlLayerGroup({
+  name: 'Layergroup',
+  layers: [
+    new OlLayerTile({
+      source: new OlSourceOsm(),
+      name: 'OSM'
+    }),
+    new OlLayerTile({
+      name: 'SRTM30-Contour',
+      minResolution: 0,
+      maxResolution: 10,
+      source: new OlSourceTileWMS({
+        url: 'https://ows.terrestris.de/osm/service',
+        params: {
+          'LAYERS': 'SRTM30-Contour'
+        }
+      })
+    }),
+    new OlLayerTile({
+      name: 'OSM-Overlay-WMS',
+      minResolution: 0,
+      maxResolution: 200,
+      source: new OlSourceTileWMS({
+        url: 'https://ows.terrestris.de/osm/service',
+        params: {
+          'LAYERS': 'OSM-Overlay-WMS'
+        }
+      })
+    })
+  ]
 });
 
 const center = [ 788453.4890155146, 6573085.729161344 ];
@@ -34,31 +73,7 @@ const map = new OlMap({
     center: center,
     zoom: 16,
   }),
-  layers: [layer]
-});
-
-const layerGroup = new OlLayerGroup({
-  name: 'Layergroup',
-  layers: [
-    new OlLayerTile({
-      name: 'Food insecurity layer',
-      minResolution: 200,
-      maxResolution: 2000,
-      source: new OlSourceTileJson({
-        url: 'https://api.tiles.mapbox.com/v3/mapbox.20110804-hoa-foodinsecurity-3month.json?secure',
-        crossOrigin: 'anonymous'
-      })
-    }),
-    new OlLayerTile({
-      name: 'World borders layer',
-      minResolution: 2000,
-      maxResolution: 20000,
-      source: new OlSourceTileJson({
-        url: 'https://api.tiles.mapbox.com/v3/mapbox.world-borders-light.json?secure',
-        crossOrigin: 'anonymous'
-      })
-    })
-  ]
+  layers: [layerGroup]
 });
 
 function App() {
