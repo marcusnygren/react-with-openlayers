@@ -15,7 +15,8 @@ import 'antd/dist/antd.css';
 import {
   SimpleButton, 
   MapComponent,
-  NominatimSearch
+  NominatimSearch,
+  MeasureButton
 } from '@terrestris/react-geo';
 
 const layer = new OlLayerTile({
@@ -61,6 +62,15 @@ function App() {
             key="search"
             map={map}
           />
+          <MeasureButton
+            key="measureButton"
+            name="line"
+            map={map}
+            measureType="line"
+            icon="pencil"
+          >
+            Measure distance
+          </MeasureButton>
         </Drawer>
     </div>
   );
