@@ -85,10 +85,8 @@ function App() {
 
   return (
     <div className="App">
-        <MapComponent
-          map={map}
-        >
-        </MapComponent>
+      <MapProvider map={map}>
+        <Map />
         <SimpleButton
           style={{position: 'fixed', top: '30px', right: '30px'}}
           onClick={toggleDrawer}
@@ -116,7 +114,7 @@ function App() {
             layerGroup={layerGroup}
           />
         </Drawer>
-        
+      </MapProvider>
     </div>
   );
 }
