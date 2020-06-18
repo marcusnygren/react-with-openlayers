@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import OlMap from 'ol/Map';
 import OlView from 'ol/View';
 import OlLayerTile from 'ol/layer/Tile';
 import OlSourceOsm from 'ol/source/OSM';
+
+import { Drawer } from 'antd';
 
 import './App.css';
 import 'ol/ol.css';
@@ -11,7 +13,8 @@ import 'antd/dist/antd.css';
 //import './react-geo.css';
 
 import {
-  SimpleButton, MapComponent
+  SimpleButton, 
+  MapComponent
 } from '@terrestris/react-geo';
 
 const layer = new OlLayerTile({
@@ -29,16 +32,28 @@ const map = new OlMap({
 });
 
 function App() {
+  const [visible, setVisible] = useState(false);
+
+  const toggleDrawer = () => {
+    setVisible(!visible);
+  }
+
   return (
     <div className="App">
-        <div className="App">
-          <MapComponent
-            map={map}
-          />
-        </div>
+        <MapComponent
+          map={map}
+        />
         <SimpleButton
-          onClick={() => {alert('Hello World!');}}
+          style={{position: 'fixed', top: '30px', right: '30px'}}
+          onClick={toggleDrawer}
           icon="bars"
+        />
+        <Drawer
+          title="react-geo-application"
+          placement="right"
+          onClose={toggleDrawer}
+          visible={visible}
+          mask={false}
         />
     </div>
   );
