@@ -21,18 +21,19 @@ import {
   NominatimSearch,
   MeasureButton,
   LayerTree,
-  mappify
+  MapProvider,
+  mappify,
+  onDropAware
 } from '@terrestris/react-geo';
 
 const layer = new OlLayerTile({
   source: new OlSourceOsm()
 });
 
-
 const MappifiedNominatimSearch = mappify(NominatimSearch);
 const MappifiedMeasureButton = mappify(MeasureButton);
 const MappifiedLayerTree = mappify(LayerTree);
-const Map = mappify(MapComponent);
+const Map = mappify(onDropAware(MapComponent));
 
 const layerGroup = new OlLayerGroup({
   name: 'Layergroup',
