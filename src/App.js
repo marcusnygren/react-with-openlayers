@@ -6,7 +6,6 @@ import OlLayerTile from 'ol/layer/Tile';
 import OlSourceOsm from 'ol/source/OSM';
 import OlSourceTileWMS from 'ol/source/TileWMS';
 import OlLayerGroup from 'ol/layer/Group';
-import OlSourceTileJson from 'ol/source/TileJSON';
 
 import { Drawer } from 'antd';
 
