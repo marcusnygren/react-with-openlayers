@@ -14,7 +14,8 @@ import 'antd/dist/antd.css';
 
 import {
   SimpleButton, 
-  MapComponent
+  MapComponent,
+  NominatimSearch
 } from '@terrestris/react-geo';
 
 const layer = new OlLayerTile({
@@ -42,7 +43,8 @@ function App() {
     <div className="App">
         <MapComponent
           map={map}
-        />
+        >
+        </MapComponent>
         <SimpleButton
           style={{position: 'fixed', top: '30px', right: '30px'}}
           onClick={toggleDrawer}
@@ -54,7 +56,12 @@ function App() {
           onClose={toggleDrawer}
           visible={visible}
           mask={false}
-        />
+        >
+          <NominatimSearch
+            key="search"
+            map={map}
+          />
+        </Drawer>
     </div>
   );
 }
