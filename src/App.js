@@ -101,22 +101,19 @@ function App() {
           visible={visible}
           mask={false}
         >
-          <NominatimSearch
+          <MappifiedNominatimSearch
             key="search"
-            map={map}
           />
-          <MeasureButton
+          <MappifiedMeasureButton
             key="measureButton"
             name="line"
-            map={map}
             measureType="line"
             icon="pencil"
           >
             Measure distance
-          </MeasureButton>
-          <LayerTree
+          </MappifiedMeasureButton>
+          <MappifiedLayerTree
             layerGroup={layerGroup}
-            map={map}
           />
         </Drawer>
         
